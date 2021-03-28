@@ -46,7 +46,8 @@ export default function VisibleView() {
 			});
 		}
 		getListOnInit();
-	});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<section className='mainContainer hbox main-center flex'>
