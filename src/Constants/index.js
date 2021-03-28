@@ -7,7 +7,9 @@ export const INITIAL_STATE = {
 	pageNumber: 1,
 	resultsLoading: false,
 	productDetails: {
-		primary_product: {},
+		primary_product: {
+			images: []
+		},
 		options_types: {},
 		quantity: 1
 	},
