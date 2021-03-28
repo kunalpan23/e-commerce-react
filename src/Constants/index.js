@@ -5,5 +5,27 @@ export const INITIAL_STATE = {
 	itemList: [],
 	loading: true,
 	pageNumber: 1,
-	resultsLoading: false
+	resultsLoading: false,
+	productDetails: {
+		primary_product: {},
+		options_types: {},
+		quantity: 1
+	},
+	cart: []
 };
+
+/* cart Structure 
+	{	
+		_id: String<ID>
+		product_name: String,
+		product_sale_price: Number,
+		product_mark_price: Number,
+		quantity: Number,
+		product_total_price: Number,
+		product_detail: Object{
+			size: Number,
+			color: String
+		}
+	}
+
+*/

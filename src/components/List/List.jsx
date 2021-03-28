@@ -1,15 +1,58 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import { MyContext } from '../../Store';
+import { BASE_URL } from '../../Constants';
+import { customFetch } from '../../utils';
 
-export default function List({ itemList, loadMoreDataHandler }) {
-	const [state] = useContext(MyContext);
+export default function List() {
+	const [state, setState] = useContext(MyContext);
 
-	return (
+	const loadMoreDataHandler = async () => {
+		let newPage = state.pageNumber;
+		newPage++;
+
+		setState({ ...state, listLoading: !state.listLoading });
+
+		const data = await customFetch(`${BASE_URL}`, 'get', {
+			params: { page: newPage }
+		});
+
+		if (data.products.length) {
+			setState({
+				...state,
+				listLoading: false,
+				itemList: [].concat(state.itemList).concat(data.products),
+				pageNumber: newPage
+			});
+		} else {
+			setTimeout(() => {
+				alert('No more results');
+			}, 2000);
+		}
+	};
+
+	useEffect(() => {
+		async function getListOnInit() {
+			const data = await customFetch(`${BASE_URL}`, 'get', {
+				params: { page: state.pageNumber }
+			});
+
+			setState({
+				...state,
+				loading: !state.loading,
+				itemList: [].concat(...state.itemList).concat(data.products)
+			});
+		}
+		getListOnInit();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	return state.loading ? (
+		<div>Loading...</div>
+	) : (
 		<div className='list'>
 			<ul className='list__items hbox main-center'>
-				{itemList.map((item) => (
+				{state.itemList.map((item) => (
 					<Item item={item} key={item._id} />
 				))}
 			</ul>

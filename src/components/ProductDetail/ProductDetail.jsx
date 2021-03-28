@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
+import { MyContext } from '../../Store';
 
-export default class ProductDetail extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+export default function ProductDetail() {
+	const [state, setState] = useContext(MyContext);
 
-	render() {
-		return <div>This is product Detail</div>;
-	}
+	return <div>{JSON.stringify(state, null, 4)};</div>;
 }
