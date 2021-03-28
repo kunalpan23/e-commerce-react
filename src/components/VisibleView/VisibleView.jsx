@@ -9,7 +9,7 @@ import ProductDetail from '../ProductDetail/ProductDetail';
 export default function VisibleView() {
 	const [state, setState] = useContext(MyContext);
 
-	const loadMoreDateHandler = async () => {
+	const loadMoreDataHandler = async () => {
 		let newPage = state.pageNumber;
 		newPage++;
 
