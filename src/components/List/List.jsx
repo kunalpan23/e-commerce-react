@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { BASE_URL } from '../../Constants';
 
 import { MyContext } from '../../Store';
 
 export default function List({ itemList, loadMoreDataHandler }) {
-	const [state, setState] = useContext(MyContext);
+	const [state] = useContext(MyContext);
 
 	return (
 		<div className='list'>
