@@ -8,9 +8,15 @@ export const INITIAL_STATE = {
 	resultsLoading: false,
 	productDetails: {
 		primary_product: {
+			_id: '',
+			desc: '',
+			mark_price: 0,
+			name: '',
+			sale_msg: '',
+			sale_price: 0,
 			images: []
 		},
-		options_types: {},
+		options_types: [],
 		quantity: 1
 	},
 	cart: []

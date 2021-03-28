@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { MyContext } from '../../Store';
 import List from '../List/List';
 import ProductDetail from '../ProductDetail/ProductDetail';
 

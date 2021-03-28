@@ -5,6 +5,7 @@
 	flex-shrink: 0;
 	position: relative;
 	overflow: visible;
+	z-index: 1;
 
 	&__logo-wrapper {
 		&--logo {

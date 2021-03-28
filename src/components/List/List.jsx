@@ -39,7 +39,7 @@ export default function List() {
 
 			setState({
 				...state,
-				loading: !state.loading,
+				loading: false,
 				itemList: [].concat(...state.itemList).concat(data.products)
 			});
 		}

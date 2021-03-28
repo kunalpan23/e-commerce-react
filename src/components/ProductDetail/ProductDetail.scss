@@ -1,17 +1,236 @@
 .product {
 	background: white;
-	padding: 10px;
+	padding: 10px 20px;
 	border-radius: 5px;
 	margin: 20px 0;
+
+	@include mediaQueryMaxWidth(600px) {
+		& {
+			flex-direction: column;
+		}
+	}
 
 	&_overview {
 		flex: 1;
 		width: 50%;
+
+		@include mediaQueryMaxWidth(600px) {
+			& {
+				width: 100%;
+			}
+		}
 	}
 
 	&__preview {
 		margin-right: 50px;
+
 		&--container {
+		}
+
+		.slider {
+			& > li {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+
+		.carousel-slider .control-arrow {
+			height: 60px;
+			width: 60px;
+			border-radius: 50%;
+			opacity: 1 !important;
+			top: 50%;
+			transform: translateY(-50%);
+			background: rgba(0, 0, 0, 0.2) !important;
+		}
+	}
+
+	&__details {
+		&--content {
+			@include separator();
+			padding: 30px 0;
+
+			& > h1 {
+				text-transform: uppercase;
+				position: relative;
+				font-size: 20px;
+				line-height: 24px;
+				color: $textDark;
+				font-family: $Oswald;
+				margin-bottom: 40px;
+				font-weight: $fontSemiBold;
+
+				&:after {
+					content: '';
+					position: absolute;
+					height: 4px;
+					width: 32px;
+					background: $primary;
+					left: 0;
+					top: calc(100% + 5px);
+				}
+			}
+
+			&-description {
+				.product__description-text {
+					font-size: 14px;
+					line-height: 24px;
+					color: $textDescription;
+					font-family: $Ubuntu;
+				}
+
+				.product__less-more-button {
+					font-size: 14px;
+					line-height: 24px;
+					background: none;
+					border: 0;
+					outline: 0;
+					color: $primary;
+					font-weight: $fontSemiBold;
+
+					&:hover {
+						cursor: pointer;
+						text-decoration: underline;
+					}
+				}
+			}
+
+			&-prices {
+				display: flex;
+				align-items: flex-end;
+
+				& > span {
+					margin-right: 10px;
+					color: $textDark;
+					font-family: $Oswald;
+				}
+
+				.prices__salePrices {
+					font-size: 18px;
+					line-height: 24px;
+
+					font-weight: 600;
+				}
+
+				.prices__markPrices {
+					font-size: 12px;
+					line-height: 24px;
+					color: $textDescription;
+					text-decoration: line-through;
+				}
+			}
+
+			.prices {
+				font-size: 12px;
+				color: $primary;
+				margin: 8px 0;
+			}
+
+			&-disclaimer {
+				& p {
+					font-size: 12px;
+					color: $textDescription;
+				}
+			}
+
+			&-variation {
+				margin-top: 20px;
+
+				.variation {
+					&__label {
+						font-size: 12px;
+						margin-bottom: 15px;
+						font-family: $Ubuntu;
+						font-weight: $fontLight;
+						color: $textLight;
+					}
+
+					&__button {
+						padding: 10px;
+						border-radius: 5px;
+						border: 1px solid $textDescription;
+						background: white;
+						color: $textLight;
+						text-transform: uppercase;
+						outline: none;
+						margin-right: 10px;
+						margin-bottom: 10px;
+						cursor: pointer;
+
+						&:last-child {
+							margin-right: 0;
+						}
+
+						&.active {
+							background: $bgLightDim;
+							border-color: $bgLightDim;
+							pointer-events: none;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&__quantity {
+		margin-top: 20px;
+
+		&--label {
+			font-size: 12px;
+			color: $textLight;
+			font-weight: $fontSemiBold;
+			font-family: $Ubuntu;
+		}
+
+		&--process {
+			display: flex;
+
+			&-wrapper {
+				display: flex;
+				overflow: hidden;
+				border: 1px solid $primary;
+				border-radius: 4px;
+				margin-top: 10px;
+			}
+			& button {
+				cursor: pointer;
+				outline: none;
+			}
+
+			.quantity-button,
+			.quantity-count {
+				color: $primary;
+				padding: 4px 10px;
+				font-size: 14px;
+				font-weight: $fontLight;
+				border: 0;
+			}
+
+			.quantity-count {
+				background: $primary;
+				color: white;
+			}
+		}
+	}
+
+	.addToCartButton__wrapper {
+		padding: 40px 0;
+		&--button {
+			display: flex;
+			width: 100%;
+			padding: 10px;
+			background: $primary;
+			border-radius: 5px;
+			color: white;
+			justify-content: center;
+			align-items: center;
+			font-size: 18px;
+			font-family: $Ubuntu;
+			font-weight: $fontLight;
+			outline: none;
+			cursor: pointer;
+			border: 0;
 		}
 	}
 }
