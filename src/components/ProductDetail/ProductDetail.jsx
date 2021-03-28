@@ -64,6 +64,21 @@ export default function ProductDetail() {
 		}
 	};
 
+	const addToCartHandler = () => {
+		const {
+			productDetails: { primary_product, quantity },
+			cart
+		} = state;
+		const obj = { ...primary_product };
+		obj.quantity = quantity;
+		const newCart = [...cart, obj];
+		setState({
+			...state,
+			cart: newCart,
+			productDetails: { ...state.productDetails, quantity: 0 }
+		});
+	};
+
 	const quantityCountHandler = (action) => {
 		let count = state.productDetails.quantity;
 		switch (action.type) {
@@ -77,8 +92,8 @@ export default function ProductDetail() {
 				break;
 		}
 
-		if (count < 0) {
-			count = 0;
+		if (count < 1) {
+			count = 1;
 		}
 
 		setState({
@@ -153,7 +168,9 @@ export default function ProductDetail() {
 					</div>
 				</div>
 				<div className='addToCartButton__wrapper'>
-					<button className='addToCartButton__wrapper--button'>
+					<button
+						className='addToCartButton__wrapper--button'
+						onClick={addToCartHandler}>
 						Add to cart
 					</button>
 				</div>

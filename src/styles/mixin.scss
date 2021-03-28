@@ -39,3 +39,10 @@
 @mixin separator() {
 	border-bottom: 1px solid rgba(155, 155, 155, 0.28);
 }
+
+@mixin cardView() {
+	background: white;
+	padding: 10px 20px;
+	border-radius: 5px;
+	margin: 20px 0;
+}

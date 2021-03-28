@@ -1,8 +1,5 @@
 .product {
-	background: white;
-	padding: 10px 20px;
-	border-radius: 5px;
-	margin: 20px 0;
+	@include cardView();
 
 	@include mediaQueryMaxWidth(600px) {
 		& {
@@ -205,6 +202,10 @@
 				font-size: 14px;
 				font-weight: $fontLight;
 				border: 0;
+			}
+
+			.quantity-button {
+				background: white;
 			}
 
 			.quantity-count {

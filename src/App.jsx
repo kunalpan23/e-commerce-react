@@ -11,11 +11,11 @@ function App() {
 	return (
 		<BrowserRouter>
 			<main className='wrapper vbox'>
-				<Header />
 				<MyProvider>
+					<Header />
 					<VisibleView />
+					<Footer />
 				</MyProvider>
-				<Footer />
 			</main>
 		</BrowserRouter>
 	);

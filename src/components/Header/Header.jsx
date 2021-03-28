@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { MyContext } from '../../Store';
 
 export default function Header() {
+	const [state] = useContext(MyContext);
 	const [open, setOpen] = useState(false);
 	const [vW, setVW] = useState(0);
 	useEffect(() => {
@@ -47,7 +49,11 @@ export default function Header() {
 							<a href='#CONTACT'>CONTACT</a>
 						</li>
 						<li>
-							<Link to='/bag'>BAG</Link>
+							<Link to='/bag'>
+								<span className={`${state.cart.length ? 'active' : ''}`}>
+									BAG
+								</span>
+							</Link>
 						</li>
 					</ul>
 				</div>
