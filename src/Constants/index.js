@@ -17,7 +17,9 @@ export const INITIAL_STATE = {
 			images: []
 		},
 		options_types: [],
-		quantity: 1
+		quantity: 1,
+		selected_option_ids: [],
+		product_variations: []
 	},
 	cart: []
 };

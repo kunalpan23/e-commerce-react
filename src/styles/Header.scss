@@ -9,10 +9,13 @@
 
 	&__logo-wrapper {
 		&--logo {
-			font-weight: $fontLight;
-			font-family: $Oswald;
-			font-size: 18px;
-			color: $textLight;
+			& > a {
+				text-decoration: none;
+				font-weight: $fontLight;
+				font-family: $Oswald;
+				font-size: 18px;
+				color: $textLight;
+			}
 		}
 	}
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
@@ -14,7 +15,9 @@ export default function Header() {
 		<header className='header hbox main-center cross-center'>
 			<div className='container hbox main-center cross-center'>
 				<div className='header__logo-wrapper'>
-					<h1 className='header__logo-wrapper--logo'>MY AWESOME SHOP</h1>
+					<h1 className='header__logo-wrapper--logo'>
+						<Link to='/'>MY AWESOME SHOP</Link>
+					</h1>
 				</div>
 
 				<div
@@ -44,7 +47,7 @@ export default function Header() {
 							<a href='#CONTACT'>CONTACT</a>
 						</li>
 						<li>
-							<a href='#BAG'>BAG</a>
+							<Link to='/bag'>BAG</Link>
 						</li>
 					</ul>
 				</div>

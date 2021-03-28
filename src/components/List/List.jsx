@@ -52,8 +52,8 @@ export default function List() {
 	) : (
 		<div className='list'>
 			<ul className='list__items hbox main-center'>
-				{state.itemList.map((item) => (
-					<Item item={item} key={item._id} />
+				{state.itemList.map((item, index) => (
+					<Item item={item} key={`${item._id}${index}`} />
 				))}
 			</ul>
 			<div className='list__loader vbox main-center cross-center'>

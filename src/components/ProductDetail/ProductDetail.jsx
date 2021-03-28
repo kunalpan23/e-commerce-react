@@ -27,6 +27,8 @@ export default function ProductDetail() {
 				}, []);
 			})(data);
 			productDetails.options_types = optionTypes;
+			productDetails.selected_option_ids = data?.selected_option_ids;
+			productDetails.product_variations = data?.product_variations;
 
 			setState({
 				...state,
@@ -42,7 +44,7 @@ export default function ProductDetail() {
 		}
 		getProductDetails();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id]);
+	}, []);
 
 	const ifSaved = () => {
 		const {
@@ -108,9 +110,11 @@ export default function ProductDetail() {
 						{state?.productDetails?.primary_product?.name}
 					</h1>
 					<div className='product__details--content-description'>
-						<DynamicDescription
-							description={state?.productDetails?.primary_product?.desc}
-						/>
+						{state?.productDetails?.primary_product?.desc && (
+							<DynamicDescription
+								description={state?.productDetails?.primary_product?.desc}
+							/>
+						)}
 					</div>
 				</div>
 				<div className='product__details--content'>
@@ -185,16 +189,36 @@ function DynamicDescription({ description = '', wordCount = 100 }) {
 
 function ProductVariation({ state, setState }) {
 	const {
-		productDetails: { options_types }
+		productDetails: { options_types, product_variations, selected_option_ids }
 	} = state;
 
-	const filterButtonReducer = ({ _id, name, attrib_id }) => {
-		console.log(_id, name, attrib_id);
+	const filterButtonReducer = ({ _id, name }, index) => {
+		const arr = selected_option_ids;
+		arr[index] = _id;
+
+		const primaryProduct = (function (selectedOptions) {
+			const product = product_variations.filter(
+				(product) => product.sign.join('') === selectedOptions.join('')
+			);
+
+			return product;
+		})(arr);
+
+		if (primaryProduct.length) {
+			setState({
+				...state,
+				productDetails: {
+					...state.productDetails,
+					primary_product: primaryProduct.pop(),
+					selected_option_ids: arr
+				}
+			});
+		}
 	};
 
 	return (
 		<div className='product__details'>
-			{options_types.map((item) => {
+			{options_types.map((item, index) => {
 				return (
 					<div
 						className='product__details--content-variation variation'
@@ -203,8 +227,10 @@ function ProductVariation({ state, setState }) {
 						{item.types.map((type) => {
 							return (
 								<button
-									className='variation__button'
-									onClick={() => filterButtonReducer(type)}
+									className={`variation__button ${
+										selected_option_ids.includes(type._id) ? 'active' : ''
+									}`}
+									onClick={() => filterButtonReducer(type, index)}
 									key={type._id}>
 									{type.name}
 								</button>

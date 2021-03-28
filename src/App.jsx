@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import VisibleView from './components/VisibleView/VisibleView';
@@ -8,13 +9,15 @@ import './styles/index.scss';
 
 function App() {
 	return (
-		<main className='wrapper vbox'>
-			<Header />
-			<MyProvider>
-				<VisibleView />
-			</MyProvider>
-			<Footer />
-		</main>
+		<BrowserRouter>
+			<main className='wrapper vbox'>
+				<Header />
+				<MyProvider>
+					<VisibleView />
+				</MyProvider>
+				<Footer />
+			</main>
+		</BrowserRouter>
 	);
 }
 
