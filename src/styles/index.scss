@@ -1,0 +1,21 @@
+@import './reset.scss';
+@import './flex.scss';
+@import './constants.scss';
+@import './mixin.scss';
+
+html,
+body {
+	@include rootStyle();
+}
+
+#root {
+	height: 100%;
+
+	.wrapper {
+		height: 100%;
+
+		@import './Header.scss';
+		@import './ListView.scss';
+		@import './Footer.scss';
+	}
+}

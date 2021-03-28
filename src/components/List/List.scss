@@ -1,0 +1,88 @@
+.list {
+	&__items {
+		& .item {
+			padding: 10px;
+
+			& > a {
+				text-decoration: none;
+			}
+
+			&__wrapper {
+				border-radius: 10px;
+				background: white;
+				overflow: hidden;
+				padding: 10px;
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
+				width: 242px;
+				min-height: 272px;
+				height: 100%;
+				box-sizing: border-box;
+
+				@include transition();
+
+				&:hover {
+					box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.2);
+				}
+
+				&--imageWrap {
+					@include imageSize(calc(192px - 20px), calc(242px - 20px));
+					overflow: hidden;
+					border-radius: 5px;
+
+					& > img {
+						@include imageSize(calc(192px - 20px), calc(242px - 20px));
+					}
+				}
+
+				&--details {
+					&-label {
+						font-size: 16px;
+						line-height: 20px;
+						margin-top: 10px;
+						font-weight: $fontSemiBold;
+						color: $textDark;
+					}
+
+					.detailPrices {
+						margin-top: 10px;
+
+						& > span {
+							margin-right: 10px;
+						}
+
+						&__salePrice {
+							font-size: 16px;
+							color: $textLight;
+						}
+
+						&__markedPrice {
+							font-size: 13px;
+							text-decoration: line-through;
+							color: #cbcbcb;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&__loader {
+		margin: 50px 0;
+		overflow: visible;
+
+		&--button {
+			padding: 10px;
+			border: none;
+			background: $primary;
+			color: white;
+			border-radius: 4px;
+
+			cursor: pointer;
+			@include transition();
+
+			&:hover {
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+			}
+		}
+	}
+}

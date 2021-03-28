@@ -1,0 +1,37 @@
+.header {
+	background: $bgLight;
+	height: 70px;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	flex-shrink: 0;
+	position: relative;
+
+	&__logo-wrapper {
+		&--logo {
+			font-weight: $fontLight;
+			font-family: $Oswald;
+			font-size: 18px;
+			color: $textLight;
+		}
+	}
+
+	&__menu-wrapper {
+		&--menuList {
+			& > li {
+				padding: 0 10px;
+
+				& a {
+					font-size: 16px;
+					font-weight: $fontLight;
+					font-family: $Oswald;
+					color: $textLight;
+
+					@include anchorHover();
+
+					&:hover {
+						@include anchorHoverActive();
+					}
+				}
+			}
+		}
+	}
+}

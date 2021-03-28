@@ -1,0 +1,32 @@
+/* Fonts families */
+$Oswald: 'Oswald', sans-serif;
+$Ubuntu: 'Ubuntu', sans-serif;
+
+/* Font weight */
+
+$fontLight: 400;
+$fontSemiBold: 600;
+
+/* Light Background */
+$bgLight: #ebebeb;
+$bgDark: #000000;
+
+/* c2c2c2 */
+
+/* Shadow */
+
+$Shadow: #c2c2c2;
+
+/* COLOR */
+
+$textLight: #505050;
+$textDark: #444444;
+$footerLight: #aba6a6;
+$primary: #2fada1;
+
+/* Constants Css */
+.container {
+	max-width: 1080px;
+	width: 100%;
+	padding: 0 10px;
+}

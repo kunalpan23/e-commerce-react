@@ -1,0 +1,25 @@
+@mixin rootStyle() {
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.47;
+	background: $bgLight;
+	font-family: $Ubuntu;
+	font-weight: $fontLight;
+}
+
+@mixin anchorHoverActive() {
+	text-decoration: underline;
+}
+
+@mixin anchorHover() {
+	text-decoration: none;
+}
+
+@mixin transition($duration: 240ms) {
+	transition: ease all $duration;
+}
+
+@mixin imageSize($height, $width) {
+	height: $height;
+	width: $width;
+}

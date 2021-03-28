@@ -1,0 +1,7 @@
+.mainContainer {
+	overflow: auto;
+
+	&__inner {
+		@import '../components/List/List.scss';
+	}
+}

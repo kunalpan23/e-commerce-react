@@ -1,0 +1,28 @@
+.footer {
+	height: 60px;
+	background: $bgDark;
+	flex-shrink: 0;
+
+	&__wrapper {
+		& ul {
+			& > li {
+				padding: 0 10px;
+
+				& a {
+					font-size: 12px;
+					font-weight: $fontLight;
+					font-family: $Ubuntu;
+					color: $footerLight;
+					@include transition();
+
+					@include anchorHover();
+
+					&:hover {
+						color: white;
+						@include anchorHoverActive();
+					}
+				}
+			}
+		}
+	}
+}
