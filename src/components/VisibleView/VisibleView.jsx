@@ -46,7 +46,7 @@ export default function VisibleView() {
 			});
 		}
 		getListOnInit();
-	}, []);
+	});
 
 	return (
 		<section className='mainContainer hbox main-center flex'>
