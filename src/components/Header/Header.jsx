@@ -1,30 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
 export default function Header() {
-    return (
-        <header className='header hbox main-center cross-center'>
-            <div className='container hbox main-center cross-center'>
-                <div className='header__logo-wrapper'>
-                    <h1 className='header__logo-wrapper--logo'>MY AWESOME SHOP</h1>
-                </div>
+	const [open, setOpen] = useState(false);
+	const [vW, setVW] = useState(0);
+	useEffect(() => {
+		window.addEventListener('resize', () => setVW(window.innerWidth));
 
-                <div className='header__menu-wrapper hbox flex main-end'>
-                    <ul className='header__menu-wrapper--menuList hbox '>
-                        <li>
-                            <a href='#HOME'>HOME</a>
-                        </li>
-                        <li>
-                            <a href='#ABOUT'>ABOUT</a>
-                        </li>
-                        <li>
-                            <a href='#CONTACT'>CONTACT</a>
-                        </li>
-                        <li>
-                            <a href='#BAG'>BAG</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
-    )
+		return () =>
+			window.removeEventListener('resize', () => setVW(window.innerWidth));
+	}, []);
+
+	return (
+		<header className='header hbox main-center cross-center'>
+			<div className='container hbox main-center cross-center'>
+				<div className='header__logo-wrapper'>
+					<h1 className='header__logo-wrapper--logo'>MY AWESOME SHOP</h1>
+				</div>
+
+				<div
+					className={`header__menu-wrapper hbox flex main-end ${
+						open ? 'active' : ''
+					}`}>
+					<div
+						className='header__menu-hamburger'
+						onClick={() => setOpen(!open)}>
+						<div className={`hamburger`}>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+					<ul
+						className={`header__menu-wrapper--menuList hbox ${
+							vW < 600 ? 'mobile-view' : 'desktop-view'
+						}`}>
+						<li>
+							<a href='#HOME'>HOME</a>
+						</li>
+						<li>
+							<a href='#ABOUT'>ABOUT</a>
+						</li>
+						<li>
+							<a href='#CONTACT'>CONTACT</a>
+						</li>
+						<li>
+							<a href='#BAG'>BAG</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+	);
 }

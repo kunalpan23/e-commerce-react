@@ -8,7 +8,7 @@ export default function List({ itemList, loadMoreDataHandler }) {
 
 	return (
 		<div className='list'>
-			<ul className='list__items hbox'>
+			<ul className='list__items hbox main-center'>
 				{itemList.map((item) => (
 					<Item item={item} key={item._id} />
 				))}

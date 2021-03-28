@@ -4,6 +4,7 @@
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 	flex-shrink: 0;
 	position: relative;
+	overflow: visible;
 
 	&__logo-wrapper {
 		&--logo {
@@ -15,6 +16,50 @@
 	}
 
 	&__menu-wrapper {
+		.header__menu-hamburger {
+			display: none;
+			position: relative;
+			height: 25px;
+			width: 35px;
+
+			&:hover {
+				cursor: pointer;
+			}
+
+			& .hamburger {
+				& span {
+					display: block;
+					width: 33px;
+					height: 4px;
+					margin-bottom: 5px;
+					position: relative;
+
+					background: #cdcdcd;
+					border-radius: 3px;
+
+					z-index: 1;
+
+					transform-origin: 4px 0px;
+
+					transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+						background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+
+					&:first-child {
+						transform-origin: 0% 0%;
+					}
+					&:nth-last-child(2) {
+						transform-origin: 0% 100%;
+					}
+				}
+			}
+
+			@include mediaQueryMaxWidth(600px) {
+				& {
+					display: block;
+				}
+			}
+		}
+
 		&--menuList {
 			& > li {
 				padding: 0 10px;
@@ -29,6 +74,60 @@
 
 					&:hover {
 						@include anchorHoverActive();
+					}
+				}
+			}
+
+			@include mediaQueryMaxWidth(600px) {
+				&.mobile-view {
+					position: absolute;
+					flex-direction: column;
+					z-index: 1;
+					background: #fff;
+					box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.2);
+					width: 200px;
+					top: 50px;
+					display: none;
+
+					& > li,
+					& > li > a {
+						padding: 10px;
+						width: 100%;
+						box-sizing: border-box;
+						display: block;
+					}
+
+					& > li > a {
+						&:hover {
+							background: $bgLight;
+						}
+					}
+				}
+			}
+		}
+
+		&.active {
+			.header__menu-hamburger {
+				& span {
+					opacity: 1;
+					transform: rotate(45deg) translate(-11px, -11px);
+					background: #232323;
+
+					&:nth-last-child(3) {
+						opacity: 0;
+						transform: rotate(0deg) scale(0.2, 0.2);
+					}
+
+					&:nth-last-child(2) {
+						transform: rotate(-45deg) translate(-9px, 9px);
+					}
+				}
+			}
+
+			.header__menu-wrapper--menuList {
+				@include mediaQueryMaxWidth(600px) {
+					&.mobile-view {
+						display: flex;
 					}
 				}
 			}

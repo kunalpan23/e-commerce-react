@@ -23,3 +23,15 @@
 	height: $height;
 	width: $width;
 }
+
+@mixin mediaQueryMaxWidth($max-width) {
+	@media (max-width: $max-width) {
+		@content;
+	}
+}
+
+@mixin mediaQueryMaxHeight($max-height) {
+	@media (max-width: $max-height) {
+		@content;
+	}
+}
