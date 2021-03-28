@@ -59,7 +59,7 @@ export default function VisibleView() {
 							) : (
 								<List
 									itemList={state.itemList}
-									loadMoreDateHandler={loadMoreDateHandler}
+									loadMoreDataHandler={loadMoreDataHandler}
 								/>
 							)}
 						</Route>

@@ -4,7 +4,7 @@ import { BASE_URL } from '../../Constants';
 
 import { MyContext } from '../../Store';
 
-export default function List({ itemList, loadMoreDateHandler }) {
+export default function List({ itemList, loadMoreDataHandler }) {
 	const [state, setState] = useContext(MyContext);
 
 	return (
@@ -18,7 +18,7 @@ export default function List({ itemList, loadMoreDateHandler }) {
 				{!state.listLoading ? (
 					<button
 						className='list__loader--button'
-						onClick={loadMoreDateHandler}>
+						onClick={loadMoreDataHandler}>
 						Load More
 					</button>
 				) : (
