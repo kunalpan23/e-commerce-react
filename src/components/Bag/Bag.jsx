@@ -17,6 +17,7 @@ export default function Bag() {
 	return (
 		<div className='cart__wrap'>
 			<div className='cart__wrap--items'>
+				<h1 className='cart__wrap--heading'>Your Bag 👜</h1>
 				{!cart.length ? (
 					<div className='cart__wrap--empty'>
 						<h2>You have nothing in your bag</h2>

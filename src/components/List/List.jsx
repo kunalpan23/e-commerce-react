@@ -4,6 +4,7 @@ import { MyContext } from '../../Store';
 import { BASE_URL } from '../../Constants';
 import { customFetch } from '../../utils';
 import { Loader } from '../common';
+import { confirmAlert } from 'react-confirm-alert';
 
 export default function List() {
 	const [state, setState] = useContext(MyContext);
@@ -26,9 +27,16 @@ export default function List() {
 				pageNumber: newPage
 			});
 		} else {
-			setTimeout(() => {
-				alert('No more results');
-			}, 2000);
+			confirmAlert({
+				title: 'No data found',
+				buttons: [
+					{
+						label: 'Close',
+						onClick: () => setState({ ...state, listLoading: false })
+					}
+				],
+				closeOnClickOutside: false
+			});
 		}
 	};
 
