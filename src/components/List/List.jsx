@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../../Store';
 import { BASE_URL } from '../../Constants';
 import { customFetch } from '../../utils';
-import { Loader } from '../common';
+import { Loader, PriceFormat } from '../common';
 import { confirmAlert } from 'react-confirm-alert';
 
 export default function List() {
 	const [state, setState] = useContext(MyContext);
 
-	const loadMoreDataHandler = async () => {
+	const loadMoreDataHandler = useCallback(async () => {
 		let newPage = state.pageNumber;
 		newPage++;
 
@@ -38,7 +38,7 @@ export default function List() {
 				closeOnClickOutside: false
 			});
 		}
-	};
+	});
 
 	useEffect(() => {
 		async function getListOnInit() {
@@ -96,10 +96,10 @@ function Item({ item }) {
 						</p>
 						<div className='item__wrapper--details-prices detailPrices'>
 							<span className='detailPrices__salePrice'>
-								₹{item.sale_price.toFixed(2)}
+								<PriceFormat item={item} get='sale_price' />
 							</span>
 							<span className='detailPrices__markedPrice'>
-								₹{item.mark_price.toFixed(2)}
+								<PriceFormat item={item} get='mark_price' />₹
 							</span>
 						</div>
 					</div>

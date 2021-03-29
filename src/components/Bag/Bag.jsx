@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { MyContext } from '../../Store';
-import { PriceFormat, QuantityModule } from '../common';
+import { EmptyBag, PriceFormat, QuantityModule } from '../common';
 import { confirmAlert } from 'react-confirm-alert';
 import { Link } from 'react-router-dom';
 
@@ -19,59 +19,12 @@ export default function Bag() {
 			<div className='cart__wrap--items'>
 				<h1 className='cart__wrap--heading'>Your Bag 👜</h1>
 				{!cart.length ? (
-					<div className='cart__wrap--empty'>
-						<h2>You have nothing in your bag</h2>
-					</div>
+					<EmptyBag />
 				) : (
 					<>
 						<RemoveItem type='All' state={state} setState={setState} />
-						<ul>
-							{cart.map((item) => {
-								const { images, name } = item;
-								const lastImg = images[images.length - 1];
-								return (
-									<li key={`${lastImg}_${item.name}`}>
-										<div className='cart__item--wrapper hbox'>
-											<div className='cart__item--wrapper-imgWrap'>
-												<img alt={lastImg} src={lastImg} />
-											</div>
-											<div className='cart__item--wrapper-itemDetails itemDetails flex'>
-												<h2 className='itemDetails__heading'>{name}</h2>
-												<div className='itemDetails__pricesDetails'>
-													<PriceFormat item={item} get='sale_price' />
-												</div>
-												<QuantityModule
-													state={state}
-													setState={setState}
-													item={item}
-												/>
-											</div>
-											<RemoveItem
-												state={state}
-												setState={setState}
-												item={item}
-												className='cross-center'
-											/>
-										</div>
-									</li>
-								);
-							})}
-						</ul>
-						<div className='cart__wrap--total-checkout'>
-							<p>
-								<span>Cart Total: ${cartTotal}</span>
-							</p>
-							<div className='hbox'>
-								<button className='primaryButton hbox main-center cross-center'>
-									Checkout
-								</button>
-								<Link
-									to='/'
-									className='primaryButton hbox main-center cross-center'>
-									Continue Shopping
-								</Link>
-							</div>
-						</div>
+						<CartList cart={cart} state={state} setState={setState} />
+						<CartTotal cartTotal={cartTotal} />
 					</>
 				)}
 			</div>
@@ -79,10 +32,61 @@ export default function Bag() {
 	);
 }
 
+function CartTotal({ cartTotal }) {
+	return (
+		<div className='cart__wrap--total-checkout'>
+			<p>
+				<span>Cart Total: ${cartTotal}</span>
+			</p>
+			<div className='hbox'>
+				<button className='primaryButton hbox main-center cross-center'>
+					Checkout
+				</button>
+				<Link to='/' className='primaryButton hbox main-center cross-center'>
+					Continue Shopping
+				</Link>
+			</div>
+		</div>
+	);
+}
+
+function CartList({ cart, state, setState }) {
+	return (
+		<ul>
+			{cart.map((item) => {
+				const { images, name } = item;
+				const lastImg = images[images.length - 1];
+				return (
+					<li key={`${lastImg}_${item.name}`}>
+						<div className='cart__item--wrapper hbox'>
+							<div className='cart__item--wrapper-imgWrap'>
+								<img alt={lastImg} src={lastImg} />
+							</div>
+							<div className='cart__item--wrapper-itemDetails itemDetails flex'>
+								<h2 className='itemDetails__heading'>{name}</h2>
+								<div className='itemDetails__pricesDetails'>
+									<PriceFormat item={item} get='sale_price' />
+								</div>
+								<QuantityModule state={state} setState={setState} item={item} />
+							</div>
+							<RemoveItem
+								state={state}
+								setState={setState}
+								item={item}
+								className='cross-center'
+							/>
+						</div>
+					</li>
+				);
+			})}
+		</ul>
+	);
+}
+
 function RemoveItem({ type = '', setState, state, item = {}, className }) {
 	const { cart } = state;
 
-	function removeItem() {
+	const removeItem = useCallback(() => {
 		confirmAlert({
 			title: 'Confirm to Remove',
 			message: `Are you sure Remove ${type || 'this.'}`,
@@ -109,7 +113,7 @@ function RemoveItem({ type = '', setState, state, item = {}, className }) {
 				}
 			]
 		});
-	}
+	});
 
 	return (
 		<div className={`${className} cart__wrap--removeItems hbox main-end`}>

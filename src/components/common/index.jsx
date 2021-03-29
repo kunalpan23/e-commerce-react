@@ -103,3 +103,11 @@ export function Loader() {
 		</div>
 	);
 }
+
+export function EmptyBag() {
+	return (
+		<div className='cart__wrap--empty'>
+			<h2>You have nothing in your bag</h2>
+		</div>
+	);
+}

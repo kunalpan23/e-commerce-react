@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { BASE_URL } from '../../Constants';
 import { MyContext } from '../../Store';
@@ -49,7 +49,7 @@ export default function ProductDetail() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const ifSaved = () => {
+	const ifSaved = useCallback(() => {
 		const {
 			productDetails: {
 				primary_product: { sale_msg, sale_price, mark_price }
@@ -65,9 +65,9 @@ export default function ProductDetail() {
 				</div>
 			);
 		}
-	};
+	});
 
-	const addToCartHandler = () => {
+	const addToCartHandler = useCallback(() => {
 		const {
 			productDetails: { primary_product, quantity },
 			cart
@@ -104,7 +104,7 @@ export default function ProductDetail() {
 				}
 			]
 		});
-	};
+	});
 
 	return state.loading ? (
 		<Loader />
@@ -200,7 +200,7 @@ function ProductVariation({ state, setState }) {
 		productDetails: { options_types, product_variations, selected_option_ids }
 	} = state;
 
-	const filterButtonReducer = ({ _id, name }, index) => {
+	const filterButtonReducer = useCallback(({ _id, name }, index) => {
 		const arr = selected_option_ids;
 		arr[index] = _id;
 
@@ -222,7 +222,7 @@ function ProductVariation({ state, setState }) {
 				}
 			});
 		}
-	};
+	});
 
 	return (
 		<div className='product__details'>
