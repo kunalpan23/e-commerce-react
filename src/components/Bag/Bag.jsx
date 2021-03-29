@@ -113,7 +113,7 @@ function RemoveItem({ type = '', setState, state, item = {}, className }) {
 				}
 			]
 		});
-	});
+	}, [cart, item._id, setState, state, type]);
 
 	return (
 		<div className={`${className} cart__wrap--removeItems hbox main-end`}>

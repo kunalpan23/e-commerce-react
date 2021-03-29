@@ -65,7 +65,7 @@ export default function ProductDetail() {
 				</div>
 			);
 		}
-	});
+	}, [state]);
 
 	const addToCartHandler = useCallback(() => {
 		const {
@@ -104,7 +104,7 @@ export default function ProductDetail() {
 				}
 			]
 		});
-	});
+	}, [setState, state]);
 
 	return state.loading ? (
 		<Loader />
@@ -200,29 +200,32 @@ function ProductVariation({ state, setState }) {
 		productDetails: { options_types, product_variations, selected_option_ids }
 	} = state;
 
-	const filterButtonReducer = useCallback(({ _id, name }, index) => {
-		const arr = selected_option_ids;
-		arr[index] = _id;
+	const filterButtonReducer = useCallback(
+		({ _id, name }, index) => {
+			const arr = selected_option_ids;
+			arr[index] = _id;
 
-		const primaryProduct = (function (selectedOptions) {
-			const product = product_variations.filter(
-				(product) => product.sign.join('') === selectedOptions.join('')
-			);
+			const primaryProduct = (function (selectedOptions) {
+				const product = product_variations.filter(
+					(product) => product.sign.join('') === selectedOptions.join('')
+				);
 
-			return product;
-		})(arr);
+				return product;
+			})(arr);
 
-		if (primaryProduct.length) {
-			setState({
-				...state,
-				productDetails: {
-					...state.productDetails,
-					primary_product: primaryProduct.pop(),
-					selected_option_ids: arr
-				}
-			});
-		}
-	});
+			if (primaryProduct.length) {
+				setState({
+					...state,
+					productDetails: {
+						...state.productDetails,
+						primary_product: primaryProduct.pop(),
+						selected_option_ids: arr
+					}
+				});
+			}
+		},
+		[product_variations, selected_option_ids, setState, state]
+	);
 
 	return (
 		<div className='product__details'>
