@@ -5,6 +5,7 @@ import { MyContext } from '../../Store';
 import { customFetch } from '../../utils';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { Loader, PriceFormat, QuantityModule } from '../common';
 
 export default function ProductDetail() {
 	const { id } = useParams();
@@ -33,7 +34,7 @@ export default function ProductDetail() {
 			setState({
 				...state,
 				loading: false,
-				productDetails: productDetails
+				productDetails: { ...productDetails, quantity: 1 }
 			});
 		}
 
@@ -43,6 +44,7 @@ export default function ProductDetail() {
 			addDataToState(productDetails);
 		}
 		getProductDetails();
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -75,35 +77,12 @@ export default function ProductDetail() {
 		setState({
 			...state,
 			cart: newCart,
-			productDetails: { ...state.productDetails, quantity: 0 }
-		});
-	};
-
-	const quantityCountHandler = (action) => {
-		let count = state.productDetails.quantity;
-		switch (action.type) {
-			case 'INCREMENT':
-				count++;
-				break;
-			case 'DECREMENT':
-				count--;
-				break;
-			default:
-				break;
-		}
-
-		if (count < 1) {
-			count = 1;
-		}
-
-		setState({
-			...state,
-			productDetails: { ...state.productDetails, quantity: count }
+			productDetails: { ...state.productDetails, quantity: 1 }
 		});
 	};
 
 	return state.loading ? (
-		<div>loading...</div>
+		<Loader />
 	) : (
 		<section className='product hbox'>
 			<div className='product_overview product__preview'>
@@ -135,10 +114,14 @@ export default function ProductDetail() {
 				<div className='product__details--content'>
 					<div className='product__details--content-prices hbox'>
 						<span className='prices__salePrices'>
-							₹ {state?.productDetails?.primary_product?.sale_price.toFixed(2)}
+							<PriceFormat
+								price={state?.productDetails?.primary_product?.sale_price}
+							/>
 						</span>
 						<span className='prices__markPrices'>
-							₹ {state?.productDetails?.primary_product?.mark_price.toFixed(2)}
+							<PriceFormat
+								price={state?.productDetails?.primary_product?.mark_price}
+							/>
 						</span>
 					</div>
 					{ifSaved()}
@@ -147,29 +130,10 @@ export default function ProductDetail() {
 					</div>
 				</div>
 				<ProductVariation state={state} setState={setState} />
-				<div className='product__quantity'>
-					<div className='product__quantity--label'>Quantity</div>
-					<div className='product__quantity--process'>
-						<div className='product__quantity--process-wrapper'>
-							<button
-								className='quantity-button decrement'
-								onClick={() => quantityCountHandler({ type: 'DECREMENT' })}>
-								-
-							</button>
-							<div className='quantity-count'>
-								{state.productDetails.quantity}
-							</div>
-							<button
-								className='quantity-button increment'
-								onClick={() => quantityCountHandler({ type: 'INCREMENT' })}>
-								+
-							</button>
-						</div>
-					</div>
-				</div>
+				<QuantityModule state={state} setState={setState} />
 				<div className='addToCartButton__wrapper'>
 					<button
-						className='addToCartButton__wrapper--button'
+						className='addToCartButton__wrapper--button primaryButton'
 						onClick={addToCartHandler}>
 						Add to cart
 					</button>

@@ -1,0 +1,54 @@
+.cart__wrap {
+	@include cardView();
+
+	ul {
+		margin-top: 30px;
+
+		& > li {
+			border-bottom: 1px solid $bgLightDim;
+			padding: 20px 0;
+
+			&:last-child {
+				border-bottom: 0;
+			}
+		}
+	}
+
+	.cart__item {
+		&--wrapper {
+			&-imgWrap {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 150px;
+				width: 150px;
+				background: $bgLight;
+				border-radius: 5px;
+				margin-right: 20px;
+
+				& > img {
+					height: auto;
+					width: 100%;
+				}
+			}
+
+			.itemDetails {
+				&__heading {
+					font-size: 18px;
+					font-weight: $fontSemiBold;
+					color: $textDark;
+					font-family: $Ubuntu;
+				}
+
+				&__pricesDetails {
+					font-size: 14px;
+					color: $textDark;
+					font-weight: $fontLight;
+					font-family: $Ubuntu;
+					margin-top: 10px;
+					margin-bottom: 10px;
+				}
+			}
+		}
+	}
+}

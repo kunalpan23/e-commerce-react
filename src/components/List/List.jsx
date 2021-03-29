@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MyContext } from '../../Store';
 import { BASE_URL } from '../../Constants';
 import { customFetch } from '../../utils';
+import { Loader } from '../common';
 
 export default function List() {
 	const [state, setState] = useContext(MyContext);
@@ -48,7 +49,7 @@ export default function List() {
 	}, []);
 
 	return state.loading ? (
-		<div>Loading...</div>
+		<Loader />
 	) : (
 		<div className='list'>
 			<ul className='list__items hbox main-center'>
@@ -64,28 +65,7 @@ export default function List() {
 						Load More
 					</button>
 				) : (
-					<svg
-						width='35px'
-						height='35px'
-						viewBox='0 0 100 100'
-						preserveAspectRatio='xMidYMid'>
-						<circle
-							cx='50'
-							cy='50'
-							fill='none'
-							stroke='#2fada1'
-							strokeWidth='10'
-							r='35'
-							strokeDasharray='164.93361431346415 56.97787143782138'>
-							<animateTransform
-								attributeName='transform'
-								type='rotate'
-								repeatCount='indefinite'
-								dur='1s'
-								values='0 50 50;360 50 50'
-								keyTimes='0;1'></animateTransform>
-						</circle>
-					</svg>
+					<Loader />
 				)}
 			</div>
 		</div>

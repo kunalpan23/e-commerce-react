@@ -19,3 +19,54 @@ body {
 		@import './Footer.scss';
 	}
 }
+
+.primaryButton {
+	@include primaryButton();
+}
+
+.product__quantity {
+	&--label {
+		font-size: 12px;
+		color: $textLight;
+		font-weight: $fontSemiBold;
+		font-family: $Ubuntu;
+	}
+
+	&--process {
+		display: flex;
+
+		&-wrapper {
+			display: flex;
+			overflow: hidden;
+			border: 1px solid $primary;
+			border-radius: 4px;
+			margin-top: 10px;
+		}
+		& button {
+			cursor: pointer;
+			outline: none;
+		}
+
+		.quantity-button,
+		.quantity-count {
+			color: $primary;
+			padding: 4px 10px;
+			font-size: 14px;
+			font-weight: $fontLight;
+			border: 0;
+		}
+
+		.quantity-button {
+			background: white;
+		}
+
+		.quantity-count {
+			background: $primary;
+			color: white;
+		}
+	}
+}
+
+.loader_wrapper {
+	padding: 20px 0;
+}

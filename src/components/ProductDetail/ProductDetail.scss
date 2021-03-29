@@ -133,6 +133,7 @@
 
 			&-variation {
 				margin-top: 20px;
+				margin-bottom: 20px;
 
 				.variation {
 					&__label {
@@ -170,68 +171,10 @@
 		}
 	}
 
-	&__quantity {
-		margin-top: 20px;
-
-		&--label {
-			font-size: 12px;
-			color: $textLight;
-			font-weight: $fontSemiBold;
-			font-family: $Ubuntu;
-		}
-
-		&--process {
-			display: flex;
-
-			&-wrapper {
-				display: flex;
-				overflow: hidden;
-				border: 1px solid $primary;
-				border-radius: 4px;
-				margin-top: 10px;
-			}
-			& button {
-				cursor: pointer;
-				outline: none;
-			}
-
-			.quantity-button,
-			.quantity-count {
-				color: $primary;
-				padding: 4px 10px;
-				font-size: 14px;
-				font-weight: $fontLight;
-				border: 0;
-			}
-
-			.quantity-button {
-				background: white;
-			}
-
-			.quantity-count {
-				background: $primary;
-				color: white;
-			}
-		}
-	}
-
 	.addToCartButton__wrapper {
 		padding: 40px 0;
 		&--button {
-			display: flex;
 			width: 100%;
-			padding: 10px;
-			background: $primary;
-			border-radius: 5px;
-			color: white;
-			justify-content: center;
-			align-items: center;
-			font-size: 18px;
-			font-family: $Ubuntu;
-			font-weight: $fontLight;
-			outline: none;
-			cursor: pointer;
-			border: 0;
 		}
 	}
 }

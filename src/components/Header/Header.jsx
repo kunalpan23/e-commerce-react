@@ -5,12 +5,16 @@ import { MyContext } from '../../Store';
 export default function Header() {
 	const [state] = useContext(MyContext);
 	const [open, setOpen] = useState(false);
+	const [over, setOver] = useState(false);
 	const [vW, setVW] = useState(0);
 	useEffect(() => {
 		window.addEventListener('resize', () => setVW(window.innerWidth));
-
-		return () =>
+		document.addEventListener('click', (e) => !over && setOpen(!open));
+		return () => {
 			window.removeEventListener('resize', () => setVW(window.innerWidth));
+			document.removeEventListener('click', () => !over && setOpen(!open));
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -25,7 +29,9 @@ export default function Header() {
 				<div
 					className={`header__menu-wrapper hbox flex main-end ${
 						open ? 'active' : ''
-					}`}>
+					}`}
+					onMouseOver={() => setOver(true)}
+					onMouseOut={() => setOver(false)}>
 					<div
 						className='header__menu-hamburger'
 						onClick={() => setOpen(!open)}>
@@ -40,7 +46,7 @@ export default function Header() {
 							vW < 600 ? 'mobile-view' : 'desktop-view'
 						}`}>
 						<li>
-							<a href='#HOME'>HOME</a>
+							<Link to='/'>HOME</Link>
 						</li>
 						<li>
 							<a href='#ABOUT'>ABOUT</a>

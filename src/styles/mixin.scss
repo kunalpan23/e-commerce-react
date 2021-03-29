@@ -46,3 +46,19 @@
 	border-radius: 5px;
 	margin: 20px 0;
 }
+
+@mixin primaryButton() {
+	display: flex;
+	padding: 10px;
+	background: $primary;
+	border-radius: 5px;
+	color: white;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	font-family: $Ubuntu;
+	font-weight: $fontLight;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
