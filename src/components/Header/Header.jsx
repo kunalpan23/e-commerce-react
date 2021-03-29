@@ -71,7 +71,7 @@ export default function Header() {
 							}`}>
 							{routes.map((route) => {
 								return (
-									<li>
+									<li key={JSON.stringify(route)}>
 										<Link onClick={() => setOpen(false)} to={route.link}>
 											{route.label === 'BAG' ? (
 												<span

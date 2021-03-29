@@ -201,7 +201,7 @@ function ProductVariation({ state, setState }) {
 	} = state;
 
 	const filterButtonReducer = useCallback(
-		({ _id, name }, index) => {
+		({ _id }, index) => {
 			const arr = selected_option_ids;
 			arr[index] = _id;
 

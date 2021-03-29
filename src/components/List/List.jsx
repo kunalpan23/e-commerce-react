@@ -11,6 +11,7 @@ export default function List() {
 
 	const loadMoreDataHandler = useCallback(async () => {
 		let newPage = state.pageNumber;
+
 		newPage++;
 
 		setState({ ...state, listLoading: !state.listLoading });

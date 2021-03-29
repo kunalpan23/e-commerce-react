@@ -7,24 +7,17 @@ import { Link } from 'react-router-dom';
 export default function Bag() {
 	const [state, setState] = useContext(MyContext);
 
-	const { cart } = state;
-	const cartTotal = cart
-		.reduce(
-			(lastAmount, amount) => lastAmount + amount.sale_price * amount.quantity,
-			0
-		)
-		.toFixed(2);
 	return (
 		<div className='cart__wrap'>
 			<div className='cart__wrap--items'>
 				<h1 className='cart__wrap--heading'>Your Bag 👜</h1>
-				{!cart.length ? (
+				{!state.cart.length ? (
 					<EmptyBag />
 				) : (
 					<>
 						<RemoveItem type='All' state={state} setState={setState} />
-						<CartList cart={cart} state={state} setState={setState} />
-						<CartTotal cartTotal={cartTotal} />
+						<CartList state={state} setState={setState} />
+						<CartTotal state={state} />
 					</>
 				)}
 			</div>
@@ -32,11 +25,20 @@ export default function Bag() {
 	);
 }
 
-function CartTotal({ cartTotal }) {
+function CartTotal({ state }) {
+	const { cart } = state;
+	const cartTotal = cart.reduce(
+		(lastAmount, amount) => lastAmount + amount.sale_price * amount.quantity,
+		0
+	);
+
 	return (
 		<div className='cart__wrap--total-checkout'>
 			<p>
-				<span>Cart Total: ${cartTotal}</span>
+				<span>
+					Cart Total:{' '}
+					<PriceFormat item={{ cartTotal: cartTotal }} get='cartTotal' />
+				</span>
 			</p>
 			<div className='hbox'>
 				<button className='primaryButton hbox main-center cross-center'>
@@ -50,7 +52,8 @@ function CartTotal({ cartTotal }) {
 	);
 }
 
-function CartList({ cart, state, setState }) {
+function CartList({ state, setState }) {
+	const { cart } = state;
 	return (
 		<ul>
 			{cart.map((item) => {

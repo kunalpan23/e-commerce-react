@@ -1,46 +1,50 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export function QuantityModule({ state, setState, item = {} }) {
-	const quantityCountHandler = (action) => {
-		let count = item.quantity || state.productDetails.quantity;
-		switch (action.type) {
-			case 'INCREMENT':
-				count++;
-				break;
-			case 'DECREMENT':
-				count--;
-				break;
-			default:
-				break;
-		}
+	const quantityCountHandler = useCallback(
+		(action) => {
+			let count = item.quantity || state.productDetails.quantity;
+			let newState;
 
-		if (count < 1) {
-			count = 1;
-		}
+			switch (action.type) {
+				case 'INCREMENT':
+					count++;
+					break;
+				case 'DECREMENT':
+					count--;
+					break;
+				default:
+					break;
+			}
 
-		if (item.hasOwnProperty('_id')) {
-			const cart = state.cart.map((cartItem) => {
-				if (cartItem._id === item._id) {
-					return {
-						...cartItem,
-						quantity: count
-					};
-				} else {
-					return cartItem;
-				}
-			});
+			if (count < 1) {
+				count = 1;
+			}
 
-			setState({
-				...state,
-				cart
-			});
-		} else {
-			setState({
-				...state,
-				productDetails: { ...state.productDetails, quantity: count }
-			});
-		}
-	};
+			if (item.hasOwnProperty('_id')) {
+				const cart = state.cart.map((cartItem) =>
+					cartItem._id === item._id
+						? {
+								...cartItem,
+								quantity: count
+						  }
+						: cartItem
+				);
+				newState = {
+					...state,
+					cart
+				};
+			} else {
+				newState = {
+					...state,
+					productDetails: { ...state.productDetails, quantity: count }
+				};
+			}
+
+			setState(newState); /* Setting State */
+		},
+		[item, setState, state]
+	);
 
 	return (
 		<div className='product__quantity'>
