@@ -38,7 +38,7 @@ export default function List() {
 				closeOnClickOutside: false
 			});
 		}
-	});
+	}, [setState, state]);
 
 	useEffect(() => {
 		async function getListOnInit() {
