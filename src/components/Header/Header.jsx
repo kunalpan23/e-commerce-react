@@ -5,7 +5,6 @@ import { MyContext } from '../../Store';
 export default function Header() {
 	const [state] = useContext(MyContext);
 	const [open, setOpen] = useState(false);
-	const [over, setOver] = useState(false);
 	const [vW, setVW] = useState(0);
 	useEffect(() => {
 		window.addEventListener('resize', () => setVW(window.innerWidth));
