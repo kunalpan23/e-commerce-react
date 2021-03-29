@@ -2,12 +2,18 @@ import React, { useContext } from 'react';
 import { MyContext } from '../../Store';
 import { PriceFormat, QuantityModule } from '../common';
 import { confirmAlert } from 'react-confirm-alert';
+import { Link } from 'react-router-dom';
 
 export default function Bag() {
 	const [state, setState] = useContext(MyContext);
 
 	const { cart } = state;
-
+	const cartTotal = cart
+		.reduce(
+			(lastAmount, amount) => lastAmount + amount.sale_price * amount.quantity,
+			0
+		)
+		.toFixed(2);
 	return (
 		<div className='cart__wrap'>
 			<div className='cart__wrap--items'>
@@ -31,7 +37,7 @@ export default function Bag() {
 											<div className='cart__item--wrapper-itemDetails itemDetails flex'>
 												<h2 className='itemDetails__heading'>{name}</h2>
 												<div className='itemDetails__pricesDetails'>
-													<PriceFormat price={item.sale_price} />
+													<PriceFormat item={item} get='sale_price' />
 												</div>
 												<QuantityModule
 													state={state}
@@ -50,6 +56,21 @@ export default function Bag() {
 								);
 							})}
 						</ul>
+						<div className='cart__wrap--total-checkout'>
+							<p>
+								<span>Cart Total: ${cartTotal}</span>
+							</p>
+							<div className='hbox'>
+								<button className='primaryButton hbox main-center cross-center'>
+									Checkout
+								</button>
+								<Link
+									to='/'
+									className='primaryButton hbox main-center cross-center'>
+									Continue Shopping
+								</Link>
+							</div>
+						</div>
 					</>
 				)}
 			</div>

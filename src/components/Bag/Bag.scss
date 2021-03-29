@@ -7,7 +7,6 @@
 		& > li {
 			border-bottom: 1px solid $bgLightDim;
 			padding: 20px 0;
-
 			&:last-child {
 				border-bottom: 0;
 			}
@@ -17,6 +16,12 @@
 	.cart__item {
 		&--wrapper {
 			&-imgWrap {
+				@include mediaQueryMaxWidth(600px) {
+					height: auto;
+					width: 100%;
+					margin: 0 0 20px 0;
+				}
+
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -48,6 +53,26 @@
 					margin-top: 10px;
 					margin-bottom: 10px;
 				}
+			}
+		}
+	}
+
+	&--total {
+		&-checkout {
+			& a {
+				text-decoration: none;
+			}
+
+			& button {
+				margin-right: 10px;
+			}
+
+			> p {
+				font-size: 18px;
+				color: $textDark;
+				font-weight: $fontSemiBold;
+				font-family: $Oswald;
+				margin: 20px 0;
 			}
 		}
 	}

@@ -66,8 +66,13 @@ export function QuantityModule({ state, setState, item = {} }) {
 	);
 }
 
-export function PriceFormat({ price = '' }) {
-	return `₹ ${price.toFixed(2)}`;
+export function PriceFormat({ item, get }) {
+	const finalPrice = (item.quantity > 1
+		? item[get] * item.quantity
+		: item[get]
+	).toFixed(2);
+
+	return `₹ ${finalPrice}`;
 }
 
 export function Loader() {

@@ -6,6 +6,7 @@ import { customFetch } from '../../utils';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { Loader, PriceFormat, QuantityModule } from '../common';
+import { confirmAlert } from 'react-confirm-alert';
 
 export default function ProductDetail() {
 	const { id } = useParams();
@@ -71,13 +72,37 @@ export default function ProductDetail() {
 			productDetails: { primary_product, quantity },
 			cart
 		} = state;
-		const obj = { ...primary_product };
-		obj.quantity = quantity;
-		const newCart = [...cart, obj];
+
+		const filterCart = cart.filter(
+			(cartItem) => cartItem._id === primary_product._id
+		);
+		let newCart;
+		if (filterCart.length) {
+			const obj = filterCart.pop();
+			obj.quantity += quantity;
+			newCart = cart.map((cartItem) =>
+				cartItem._id === obj._id ? obj : cartItem
+			);
+		} else {
+			const obj = { ...primary_product };
+			obj.quantity = quantity;
+			newCart = [...cart, obj];
+		}
+
 		setState({
 			...state,
 			cart: newCart,
 			productDetails: { ...state.productDetails, quantity: 1 }
+		});
+
+		confirmAlert({
+			title: 'Added to Bag',
+			buttons: [
+				{
+					label: 'Close',
+					onClick: () => {}
+				}
+			]
 		});
 	};
 
@@ -115,12 +140,14 @@ export default function ProductDetail() {
 					<div className='product__details--content-prices hbox'>
 						<span className='prices__salePrices'>
 							<PriceFormat
-								price={state?.productDetails?.primary_product?.sale_price}
+								item={state?.productDetails?.primary_product}
+								get='sale_price'
 							/>
 						</span>
 						<span className='prices__markPrices'>
 							<PriceFormat
-								price={state?.productDetails?.primary_product?.mark_price}
+								item={state?.productDetails?.primary_product}
+								get='mark_price'
 							/>
 						</span>
 					</div>
