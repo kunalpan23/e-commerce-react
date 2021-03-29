@@ -9,10 +9,10 @@ export default function Header() {
 	const [vW, setVW] = useState(0);
 	useEffect(() => {
 		window.addEventListener('resize', () => setVW(window.innerWidth));
-		document.addEventListener('click', (e) => !over && setOpen(!open));
+		// document.addEventListener('click', (e) => !over && setOpen(!open));
 		return () => {
 			window.removeEventListener('resize', () => setVW(window.innerWidth));
-			document.removeEventListener('click', () => !over && setOpen(!open));
+			// document.removeEventListener('click', () => !over && setOpen(!open));
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -30,8 +30,10 @@ export default function Header() {
 					className={`header__menu-wrapper hbox flex main-end ${
 						open ? 'active' : ''
 					}`}
-					onMouseOver={() => setOver(true)}
-					onMouseOut={() => setOver(false)}>
+					onMouseOver={() => setOpen(true)}
+					onMouseOut={() => setOpen(false)}
+					onFocus={() => setOpen(true)}
+					onBlur={() => setOpen(false)}>
 					<div
 						className='header__menu-hamburger'
 						onClick={() => setOpen(!open)}>

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { MyContext } from '../../Store';
 import { PriceFormat, QuantityModule } from '../common';
+import { confirmAlert } from 'react-confirm-alert';
 
 export default function Bag() {
 	const [state, setState] = useContext(MyContext);
@@ -16,7 +17,7 @@ export default function Bag() {
 					</div>
 				) : (
 					<>
-						<RemoveItem type='ALL' state={state} setState={setState} />
+						<RemoveItem type='All' state={state} setState={setState} />
 						<ul>
 							{cart.map((item) => {
 								const { images, name } = item;
@@ -60,15 +61,32 @@ function RemoveItem({ type = '', setState, state, item = {}, className }) {
 	const { cart } = state;
 
 	function removeItem() {
-		switch (type) {
-			case 'All':
-				setState({ ...state, cart: [] });
-				break;
-			default:
-				const newCart = cart.filter((cartItem) => cartItem._id !== item._id);
-				setState({ ...state, cart: newCart });
-				break;
-		}
+		confirmAlert({
+			title: 'Confirm to Remove',
+			message: `Are you sure Remove ${type || 'this.'}`,
+			buttons: [
+				{
+					label: 'Yes',
+					onClick: () => {
+						switch (type) {
+							case 'All':
+								setState({ ...state, cart: [] });
+								break;
+							default:
+								const newCart = cart.filter(
+									(cartItem) => cartItem._id !== item._id
+								);
+								setState({ ...state, cart: newCart });
+								break;
+						}
+					}
+				},
+				{
+					label: 'No',
+					onClick: () => false
+				}
+			]
+		});
 	}
 
 	return (
