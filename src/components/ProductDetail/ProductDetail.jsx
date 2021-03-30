@@ -17,8 +17,9 @@ export default function ProductDetail() {
 		function addDataToState(data) {
 			const productDetails = state.productDetails;
 			productDetails.primary_product = data?.primary_product;
-
-			const optionTypes = (function (data) {
+			productDetails.selected_option_ids = data?.selected_option_ids;
+			productDetails.product_variations = data?.product_variations;
+			productDetails.options_types = (function (data) {
 				return data.attributes.reduce((acc, item) => {
 					acc.push({
 						...item,
@@ -28,9 +29,6 @@ export default function ProductDetail() {
 					return acc;
 				}, []);
 			})(data);
-			productDetails.options_types = optionTypes;
-			productDetails.selected_option_ids = data?.selected_option_ids;
-			productDetails.product_variations = data?.product_variations;
 
 			setState({
 				...state,
@@ -76,6 +74,7 @@ export default function ProductDetail() {
 		const filterCart = cart.filter(
 			(cartItem) => cartItem._id === primary_product._id
 		);
+
 		let newCart;
 		if (filterCart.length) {
 			const obj = filterCart.pop();
