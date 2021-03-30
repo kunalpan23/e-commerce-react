@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { BASE_URL } from '../../Constants';
+import CONFIG from '../../data/config';
 import { MyContext } from '../../Store';
 import { customFetch } from '../../utils';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -41,7 +41,7 @@ export default function ProductDetail() {
 
 		async function getProductDetails() {
 			setState({ ...state, loading: true });
-			const productDetails = await customFetch(`${BASE_URL}/${id}`);
+			const productDetails = await customFetch(`${CONFIG.BASE_URL}/${id}`);
 			addDataToState(productDetails);
 		}
 		getProductDetails();

@@ -71,10 +71,9 @@ export function QuantityModule({ state, setState, item = {} }) {
 }
 
 export function PriceFormat({ item, get }) {
-	const finalPrice = (item.quantity > 1
-		? item[get] * item.quantity
-		: item[get]
-	).toFixed(2);
+	const finalPrice = item.hasOwnProperty('_id')
+		? (item.quantity > 1 ? item[get] * item.quantity : item[get]).toFixed(2)
+		: '';
 
 	return `₹ ${finalPrice}`;
 }

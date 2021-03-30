@@ -37,7 +37,10 @@ function CartTotal({ state }) {
 			<p>
 				<span>
 					Cart Total:{' '}
-					<PriceFormat item={{ cartTotal: cartTotal }} get='cartTotal' />
+					<PriceFormat
+						item={{ cartTotal: cartTotal, _id: null }}
+						get='cartTotal'
+					/>
 				</span>
 			</p>
 			<div className='hbox'>

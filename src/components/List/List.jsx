@@ -1,10 +1,10 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../../Store';
-import { BASE_URL } from '../../Constants';
 import { customFetch } from '../../utils';
 import { Loader, PriceFormat } from '../common';
 import { confirmAlert } from 'react-confirm-alert';
+import CONFIG from '../../data/config';
 
 export default function List() {
 	const [state, setState] = useContext(MyContext);
@@ -16,7 +16,7 @@ export default function List() {
 
 		setState({ ...state, listLoading: !state.listLoading });
 
-		const data = await customFetch(`${BASE_URL}`, 'get', {
+		const data = await customFetch(`${CONFIG.BASE_URL}`, 'get', {
 			params: { page: newPage }
 		});
 
@@ -43,7 +43,7 @@ export default function List() {
 
 	useEffect(() => {
 		async function getListOnInit() {
-			const data = await customFetch(`${BASE_URL}`, 'get', {
+			const data = await customFetch(`${CONFIG.BASE_URL}`, 'get', {
 				params: { page: state.pageNumber }
 			});
 

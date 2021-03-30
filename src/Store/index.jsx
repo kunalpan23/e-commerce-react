@@ -1,10 +1,10 @@
 import React, { useState, createContext } from 'react';
-import { INITIAL_STATE } from '../Constants';
+import defaultStore from '../data/defaultStore';
 
 const MyContext = createContext([{}, () => {}]);
 
 const MyProvider = ({ children }) => {
-	const [state, setState] = useState(INITIAL_STATE);
+	const [state, setState] = useState(defaultStore);
 
 	return (
 		<MyContext.Provider value={[state, setState]}>
