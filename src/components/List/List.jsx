@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../../Store';
 import { customFetch } from '../../utils';
@@ -8,13 +8,15 @@ import CONFIG from '../../data/config';
 
 export default function List() {
 	const [state, setState] = useContext(MyContext);
+	const [itemList, setItemList] = useState([]);
+	const [pageNumber, setPageNumber] = useState(1);
 
 	const loadMoreDataHandler = useCallback(async () => {
-		let newPage = state.pageNumber;
+		let newPage = pageNumber;
 
 		newPage++;
 
-		setState({ ...state, listLoading: !state.listLoading });
+		setState({ ...state, listLoading: true });
 
 		const data = await customFetch(`${CONFIG.BASE_URL}`, 'get', {
 			params: { page: newPage }
@@ -23,10 +25,10 @@ export default function List() {
 		if (data.products.length) {
 			setState({
 				...state,
-				listLoading: false,
-				itemList: [].concat(state.itemList).concat(data.products),
-				pageNumber: newPage
+				listLoading: false
 			});
+			setPageNumber(newPage);
+			setItemList([...itemList, ...data.products]);
 		} else {
 			confirmAlert({
 				title: 'No data found',
@@ -39,19 +41,24 @@ export default function List() {
 				closeOnClickOutside: false
 			});
 		}
-	}, [setState, state]);
+	}, [itemList, pageNumber, setState, state]);
 
 	useEffect(() => {
+		setState({
+			...state,
+			loading: true,
+			listLoading: true
+		});
 		async function getListOnInit() {
 			const data = await customFetch(`${CONFIG.BASE_URL}`, 'get', {
-				params: { page: state.pageNumber }
+				params: { page: pageNumber }
 			});
 
 			setState({
 				...state,
-				loading: false,
-				itemList: [].concat(...state.itemList).concat(data.products)
+				loading: false
 			});
+			setItemList([...itemList, ...data.products]);
 		}
 		getListOnInit();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +69,7 @@ export default function List() {
 	) : (
 		<div className='list'>
 			<ul className='list__items hbox main-center'>
-				{state.itemList.map((item, index) => (
+				{itemList.map((item, index) => (
 					<Item item={item} key={`${item._id}${index}`} />
 				))}
 			</ul>

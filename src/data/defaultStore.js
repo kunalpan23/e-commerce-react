@@ -1,7 +1,5 @@
 const defaultStore = {
-	itemList: [],
 	loading: true,
-	pageNumber: 1,
 	resultsLoading: false,
 	productDetails: {
 		primary_product: {
